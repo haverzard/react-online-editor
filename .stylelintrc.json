@@ -1,0 +1,13 @@
+{
+  "extends": "stylelint-config-sass-guidelines",
+  "rules": {
+    "selector-max-id": 10,
+    "max-nesting-depth": 10,
+    "selector-max-compound-selectors": 10,
+    "color-named": "always-where-possible"
+  },
+  "ignoreFiles": [
+      "public/**",
+      "node_modules/**"
+  ]
+}

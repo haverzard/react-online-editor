@@ -1,0 +1,7 @@
+.code-editor {
+  height: 90%;
+}
+
+.code-editor > div {
+  height: 100%;
+}

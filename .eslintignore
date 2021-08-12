@@ -1,0 +1,8 @@
+  
+**/build/*
+**/node_modules/*
+**/dist/*
+**/lib/*
+**/esm/*
+*.mdx
+*.css

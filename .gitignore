@@ -1,0 +1,7 @@
+# modules
+node_modules/
+
+# output
+lib/
+esm/
+*.log
