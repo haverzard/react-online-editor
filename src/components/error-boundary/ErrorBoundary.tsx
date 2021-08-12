@@ -1,28 +1,29 @@
-// @ts-nocheck
-import React from "react";
+import React, { PropsWithChildren, ReactPropTypes } from "react";
 
 export default class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props)
-    this.node = this.props.children
-    this.state = { error: null }
+  constructor(props: PropsWithChildren<ReactPropTypes>) {
+    super(props);
+    const { children } = props;
+    this.state = { error: null, node: children };
   }
 
-  componentDidCatch(err, _) {
-    this.setState({ error: err })
+  componentDidCatch(err: any) {
+    this.setState({ error: err });
   }
 
   componentDidUpdate() {
-    if (this.props.children !== this.node) {
-      this.node = this.props.children
-      this.setState({ error: null })
+    const { children } = this.props;
+    const { node } = this.state as any;
+    if (children !== node) {
+      this.setState({ error: null, node: children });
     }
   }
 
   render() {
-    if (this.state.error) {
-      return <pre style={{ color: 'red' }}>{this.state.error.message}</pre>
+    const { error } = this.state as any;
+    if (error) {
+      return <pre style={{ color: "red" }}>{error.message}</pre>;
     }
-    return <div>{this.props.children}</div>
+    return <div>{this.props.children}</div>;
   }
 }
