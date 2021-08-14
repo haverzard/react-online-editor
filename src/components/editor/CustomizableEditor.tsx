@@ -8,8 +8,10 @@ import FileList from "../file-list/CFileList";
 import ErrorBoundary from "../error-boundary/ErrorBoundary";
 import { bundleModule } from "../../utilities/compiler";
 import { Code } from "../../models/compiler";
+import { CustomizableEditorProps } from "../../models/editor";
 
 import * as styles from "./Editor.module.css";
+
 // import 'codemirror/mode/jsx/jsx'
 // import 'codemirror/addon/edit/closebrackets'
 // import 'codemirror/keymap/sublime'
@@ -17,10 +19,18 @@ import * as styles from "./Editor.module.css";
 
 const CODE_EDITOR_CONTEXT: any = "code-editor-context";
 
-function CustomizableEditor3({ code, currentFile, viewer, isSolution, theme, keyMap, storageKey }: any) {
-  const { mainApp, additionals } = code;
-  const [app, setApp] = useState(mainApp);
-  const [files, setFiles] = useState<FileContainer>(additionals);
+function CustomizableEditor({
+  code,
+  currentFile,
+  viewer,
+  isSolution,
+  theme,
+  keyMap,
+  storageKey,
+}: CustomizableEditorProps) {
+  const { app, files } = code;
+  const [_app, setApp] = useState(app);
+  const [_files, setFiles] = useState(files);
   const [current, setCurrent] = useState(currentFile);
   const options = {
     mode: { name: "jsx", json: true },
@@ -30,7 +40,7 @@ function CustomizableEditor3({ code, currentFile, viewer, isSolution, theme, key
     lineWrapping: true,
     autoCloseBrackets: true,
   };
-  const filenames = ["App"].concat(Object.keys(files));
+  const filenames = ["App"].concat(Object.keys(_files));
 
   const setFileState = ({ _files, _current }: FileState) => {
     setFiles(_files);
@@ -56,9 +66,9 @@ function CustomizableEditor3({ code, currentFile, viewer, isSolution, theme, key
 
   const getCurrentCode = () => {
     if (current === "App") {
-      return app;
+      return _app;
     }
-    return files[current];
+    return _files[current];
   };
 
   const loadDependencies = () => {
@@ -66,7 +76,7 @@ function CustomizableEditor3({ code, currentFile, viewer, isSolution, theme, key
   };
 
   const addFile = (file: string) => {
-    const newFiles = files;
+    const newFiles = _files;
     newFiles[file] = "";
     setFileState({ _files: newFiles, _current: file });
   };
@@ -77,13 +87,13 @@ function CustomizableEditor3({ code, currentFile, viewer, isSolution, theme, key
     // if it's new name -> replace current with new name with same order
     // if it's the same -> do nothing
     if (file !== current) {
-      const names = Object.keys(files);
+      const names = Object.keys(_files);
       names.forEach((name) => {
         const newName = name === current ? file : name;
-        newFiles[newName] = files[name];
+        newFiles[newName] = _files[name];
       });
     } else {
-      newFiles = files;
+      newFiles = _files;
     }
 
     setFileState({ _files: newFiles, _current: file });
@@ -97,7 +107,7 @@ function CustomizableEditor3({ code, currentFile, viewer, isSolution, theme, key
     }
 
     // destroy file reference
-    const newFiles = { ...files };
+    const newFiles = { ..._files };
     delete newFiles[file];
 
     setFileState({ _files: newFiles, _current: newCurrent });
@@ -105,11 +115,11 @@ function CustomizableEditor3({ code, currentFile, viewer, isSolution, theme, key
 
   const swapFiles = ({ from, to }: FilesSwapRequest) => {
     const newFiles: FileContainer = {};
-    const names = Object.keys(files);
+    const names = Object.keys(_files);
     names.forEach((name) => {
       if (name === from) name = to;
       else if (name === to) name = from;
-      newFiles[name] = files[name];
+      newFiles[name] = _files[name];
     });
     setFiles(newFiles);
   };
@@ -141,7 +151,7 @@ function CustomizableEditor3({ code, currentFile, viewer, isSolution, theme, key
       return;
     }
 
-    const newFiles = files;
+    const newFiles = _files;
     newFiles[current] = value;
     setFiles(newFiles);
   };
@@ -155,16 +165,16 @@ function CustomizableEditor3({ code, currentFile, viewer, isSolution, theme, key
   }, []);
 
   useEffect(() => {
-    run({ files, app });
+    run({ files: _files, app: _app });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [files, app]);
+  }, [_files, _app]);
 
   useEffect(() => {
-    setApp(mainApp);
-    setFiles(additionals);
+    setApp(app);
+    setFiles(files);
     setCurrent(currentFile);
     if (storageKey) {
-      localStorage[`code:${storageKey}`] = JSON.stringify({ mainApp: app, additionals: files });
+      localStorage[`code:${storageKey}`] = JSON.stringify({ mainApp: _app, additionals: _files });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSolution]);
@@ -182,4 +192,4 @@ function CustomizableEditor3({ code, currentFile, viewer, isSolution, theme, key
   );
 }
 
-export default CustomizableEditor3;
+export default CustomizableEditor;
