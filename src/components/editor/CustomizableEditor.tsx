@@ -1,17 +1,15 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Controlled as CodeMirror } from "react-codemirror2";
-import { transform } from "@babel/standalone";
 
 import { FileContainer, FilesSwapRequest, FileState } from "../../models/file";
 import { ignoreError } from "../../utilities/error";
-import FileList from "../file-list/FileList";
+import FileList from "../file-list/CFileList";
 import ErrorBoundary from "../error-boundary/ErrorBoundary";
+import { bundleModule } from "../../utilities/compiler";
+import { Code } from "../../models/compiler";
 
 import * as styles from "./Editor.module.css";
-
 // import 'codemirror/mode/jsx/jsx'
 // import 'codemirror/addon/edit/closebrackets'
 // import 'codemirror/keymap/sublime'
@@ -19,12 +17,11 @@ import * as styles from "./Editor.module.css";
 
 const CODE_EDITOR_CONTEXT: any = "code-editor-context";
 
-function CustomizableEditor({ code, currentFile, isSolution, theme, keyMap, storageKey }) {
+function CustomizableEditor3({ code, currentFile, viewer, isSolution, theme, keyMap, storageKey }: any) {
   const { mainApp, additionals } = code;
   const [app, setApp] = useState(mainApp);
   const [files, setFiles] = useState<FileContainer>(additionals);
   const [current, setCurrent] = useState(currentFile);
-
   const options = {
     mode: { name: "jsx", json: true },
     theme: theme,
@@ -42,66 +39,13 @@ function CustomizableEditor({ code, currentFile, isSolution, theme, keyMap, stor
 
   const renderViewer = (node: JSX.Element) => {
     // Fun fact: ReactDOM throws 2 errors here
-    ReactDOM.render(<ErrorBoundary>{node}</ErrorBoundary>, current);
+    ReactDOM.render(<ErrorBoundary>{node}</ErrorBoundary>, viewer.current);
   };
 
-  const compile = ({ files, app }) => {
-    delete window[CODE_EDITOR_CONTEXT];
-    window[CODE_EDITOR_CONTEXT] = {} as any;
-    let transpiled = "var editorContext = {};\n";
-
-    // Iterate additional files
-    Object.keys(files).forEach((name: any) => {
-      // Handle exports
-      window[CODE_EDITOR_CONTEXT][name] = {} as any;
-      let tempTranspiled = transform(files[name], { presets: ["es2015", "react"] }).code || "";
-
-      // Replace exports init
-      tempTranspiled = tempTranspiled.replace(
-        'Object.defineProperty(exports, "__esModule", {\n  value: true\n});',
-        `window["${CODE_EDITOR_CONTEXT}"]["${name}.js"] = {}`
-      );
-
-      // Replaces `exports.<something>`
-      tempTranspiled = tempTranspiled.replaceAll(/exports\.[a-zA-Z]*[a-zA-Z0-9_-]*/g, (pattern) => {
-        const regexModuleName = /exports\.([a-zA-Z]*[a-zA-Z0-9_-]*)/;
-        const moduleName = pattern.match(regexModuleName) || [];
-        return `window["${CODE_EDITOR_CONTEXT}"]["${name}.js"]["${moduleName[1]}"]`;
-      });
-
-      tempTranspiled = "  " + tempTranspiled.replaceAll("\n", "\n  ");
-
-      // eslint-disable-next-line no-useless-concat
-      transpiled +=
-        "\n" +
-        `editorContext["${name}.js"] = () => {\n${tempTranspiled}\n  return window["${CODE_EDITOR_CONTEXT}"]["${name}.js"]\n}`;
-    });
-
-    // Main app file
-    transpiled += "\n" + transform(app, { presets: ["es2015", "react"] }).code;
-    transpiled += "\nrender(React.createElement(App, null))";
-
-    // Handle package imports (replaces `require("<something>")`)
-    transpiled = transpiled.replaceAll(/require\("[^"]*"\)/g, (pattern) => {
-      try {
-        const regexPackageName = /require\("([^".]*)"\)/;
-        const packageName = pattern.match(regexPackageName) || [];
-        return `window["${packageName[1]}"]`;
-      } catch {
-        const regexFileName = /require\("\.\/([^"]*)"\)/;
-        const fileNameRes = pattern.match(regexFileName) || [];
-        const fileName = fileNameRes[1];
-        return `window["${CODE_EDITOR_CONTEXT}"]["${fileName}"] ? window["${CODE_EDITOR_CONTEXT}"]["${fileName}"] : editorContext["${fileName}"]()`;
-      }
-    });
-
-    /* eslint-disable no-new-func */
-    return new Function("render", "require", transpiled);
-  };
-
-  const run = (code) => {
+  const run = (code: Code) => {
     try {
-      compile(code)(
+      const bundle = bundleModule(code, { context: CODE_EDITOR_CONTEXT, allowDependencies: true });
+      bundle(
         (node: JSX.Element) => renderViewer(node),
         () => null
       );
@@ -153,7 +97,7 @@ function CustomizableEditor({ code, currentFile, isSolution, theme, keyMap, stor
     }
 
     // destroy file reference
-    const newFiles = files;
+    const newFiles = { ...files };
     delete newFiles[file];
 
     setFileState({ _files: newFiles, _current: newCurrent });
@@ -170,7 +114,7 @@ function CustomizableEditor({ code, currentFile, isSolution, theme, keyMap, stor
     setFiles(newFiles);
   };
 
-  const updateFiles = ({ action, file }) => {
+  const updateFiles = ({ action, file }: any) => {
     switch (action) {
       case "add":
         addFile(file);
@@ -220,14 +164,14 @@ function CustomizableEditor({ code, currentFile, isSolution, theme, keyMap, stor
     setFiles(additionals);
     setCurrent(currentFile);
     if (storageKey) {
-      localStorage[`code:${storageKey}`] = JSON.stringify({ app, files });
+      localStorage[`code:${storageKey}`] = JSON.stringify({ mainApp: app, additionals: files });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSolution]);
 
   return (
     <>
-      <FileList current={current} updateFiles={updateFiles} files={filenames} />
+      <FileList current={current} updateFiles={updateFiles} names={filenames} />
       <CodeMirror
         className={styles["codeEditor"]}
         value={getCurrentCode()}
@@ -238,4 +182,4 @@ function CustomizableEditor({ code, currentFile, isSolution, theme, keyMap, stor
   );
 }
 
-export default CustomizableEditor;
+export default CustomizableEditor3;
