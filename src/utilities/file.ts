@@ -9,4 +9,4 @@ export function genUniqueName(list: Array<string>, name: string) {
     newName += `_${duplicates}`;
   }
   return newName;
-};
+}
