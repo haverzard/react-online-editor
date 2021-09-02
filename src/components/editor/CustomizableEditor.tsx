@@ -15,8 +15,6 @@ import { RootState } from "../../store";
 
 import * as styles from "./Editor.module.css";
 
-const CODE_EDITOR_CONTEXT: any = "code-editor-context";
-
 function CustomizableEditor({
   code,
   currentFile,
@@ -25,6 +23,7 @@ function CustomizableEditor({
   theme,
   keyMap,
   storageKey,
+  codeEditorContext = "code-editor-context",
 }: CustomizableEditorProps) {
   const { app, files } = code;
   const [_app, setApp] = useState(app);
@@ -47,10 +46,10 @@ function CustomizableEditor({
     }
   };
 
-  const run = (code: Code) => {
+  const run = (_code: Code) => {
     try {
-      const bundle = bundleModule(code, { context: CODE_EDITOR_CONTEXT, allowDependencies: true });
-      bundle(
+      const bundleRunner = bundleModule(_code, { context: codeEditorContext, allowDependencies: true });
+      bundleRunner(
         (node: JSX.Element) => renderViewer(node),
         () => null
       );
@@ -94,10 +93,13 @@ function CustomizableEditor({
   useEffect(() => {
     setApp(app);
     dispatch(init({ container: files, current: currentFile }));
+  }, [isSolution]);
+
+  useEffect(() => {
     if (storageKey) {
       localStorage[`code:${storageKey}`] = JSON.stringify({ app: _app, files: _files });
     }
-  }, [isSolution]);
+  }, [_files, _app]);
 
   return (
     <>

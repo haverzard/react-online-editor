@@ -11,4 +11,5 @@ export interface CustomizableEditorProps {
   theme: string;
   keyMap: string;
   storageKey: string;
+  codeEditorContext: string;
 }
