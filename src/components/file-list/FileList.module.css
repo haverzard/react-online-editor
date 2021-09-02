@@ -1,6 +1,6 @@
 #filenameContainer {
   display: flex;
-  height: 10%;
+  height: 40px;
   overflow-x: auto;
   overflow-y: hidden;
   user-select: none;

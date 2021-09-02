@@ -3,13 +3,20 @@ import { Container } from "react-dom";
 
 import { Code } from "./compiler";
 
-export interface CustomizableEditorProps {
+interface EditorProps {
   code: Code;
   currentFile: string;
-  viewer: RefObject<Container>;
   isSolution: boolean;
+  storageKey: string;
+}
+
+export interface CustomizableEditorProps extends EditorProps {
+  runCode: (code: Code) => void;
   theme: string;
   keyMap: string;
-  storageKey: string;
+}
+
+export interface ReactEditorProps extends EditorProps {
+  viewer: RefObject<Container>;
   codeEditorContext: string;
 }

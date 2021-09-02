@@ -1,14 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import { useDispatch, useSelector } from "react-redux";
+import "codemirror/lib/codemirror.css";
 
 import { ignoreError } from "../../utilities/error";
 import FileList from "../file-list/FileList";
-import ErrorBoundary from "../error-boundary/ErrorBoundary";
-import { bundleModule } from "../../utilities/compiler";
-import { Code } from "../../models/compiler";
 import { CustomizableEditorProps } from "../../models/editor";
 import { init, edit } from "../../store/fileSlice";
 import { RootState } from "../../store";
@@ -18,12 +15,11 @@ import * as styles from "./Editor.module.css";
 function CustomizableEditor({
   code,
   currentFile,
-  viewer,
   isSolution,
   theme,
   keyMap,
   storageKey,
-  codeEditorContext = "code-editor-context",
+  runCode,
 }: CustomizableEditorProps) {
   const { app, files } = code;
   const [_app, setApp] = useState(app);
@@ -38,24 +34,6 @@ function CustomizableEditor({
     lineNumbers: true,
     lineWrapping: true,
     autoCloseBrackets: true,
-  };
-
-  const renderViewer = (node: JSX.Element) => {
-    if (viewer) {
-      ReactDOM.render(<ErrorBoundary>{node}</ErrorBoundary>, viewer.current);
-    }
-  };
-
-  const run = (_code: Code) => {
-    try {
-      const bundleRunner = bundleModule(_code, { context: codeEditorContext, allowDependencies: true });
-      bundleRunner(
-        (node: JSX.Element) => renderViewer(node),
-        () => null
-      );
-    } catch (err: any) {
-      renderViewer(<pre style={{ color: "red" }}>{err.message}</pre>);
-    }
   };
 
   const getCurrentCode = () => {
@@ -87,7 +65,7 @@ function CustomizableEditor({
   }, []);
 
   useEffect(() => {
-    run({ files: _files, app: _app });
+    runCode({ files: _files, app: _app });
   }, [_files, _app]);
 
   useEffect(() => {

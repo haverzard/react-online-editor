@@ -1,5 +1,5 @@
 .codeEditor {
-  height: 90%;
+  height: calc(100% - 40px);
 }
 
 .codeEditor > div {

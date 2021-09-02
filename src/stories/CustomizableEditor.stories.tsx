@@ -5,11 +5,10 @@ import { Provider } from "react-redux";
 import store from "../store";
 import CustomizableEditor from "../components/editor/CustomizableEditor";
 
-import "codemirror/lib/codemirror.css";
 import "codemirror/mode/jsx/jsx";
 import "codemirror/addon/edit/closebrackets";
 import "codemirror/keymap/sublime";
-import "codemirror/theme/shadowfox.css";
+import "codemirror/theme/monokai.css";
 
 export default {
   title: "haverzard/CustomizableEditor",
@@ -18,15 +17,18 @@ export default {
 
 const Template: ComponentStory<typeof CustomizableEditor> = (args) => (
   <Provider store={store}>
-    <CustomizableEditor {...args} />
+    <div style={{ height: "200px" }}>
+      <CustomizableEditor {...args} />
+    </div>
   </Provider>
 );
 
 export const Default = Template.bind({});
 Default.args = {
-  code: { app: "xxx", files: {} },
+  code: { app: "var x = 123", files: {} },
   currentFile: "App",
-  theme: "shadowfox",
+  theme: "monokai",
   keyMap: "sublime",
   storageKey: "test",
+  runCode: () => null,
 };
