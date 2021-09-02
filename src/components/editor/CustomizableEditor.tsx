@@ -5,7 +5,7 @@ import { Controlled as CodeMirror } from "react-codemirror2";
 import { useDispatch, useSelector } from "react-redux";
 
 import { ignoreError } from "../../utilities/error";
-import FileList from "../file-list/CFileList";
+import FileList from "../file-list/FileList";
 import ErrorBoundary from "../error-boundary/ErrorBoundary";
 import { bundleModule } from "../../utilities/compiler";
 import { Code } from "../../models/compiler";

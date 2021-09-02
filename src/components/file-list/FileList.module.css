@@ -16,22 +16,7 @@
   display: flex;
   font-family: 'Oxygen', sans-serif;
   font-size: 14px;
-}
-
-.filename {
-  padding: 10px 15px;
-}
-
-.dragBtn {
-  color: lightblue;
-  display: flex;
-  cursor: grab;
-}
-
-.closeBtn {
-  color: pink;
-  display: flex;
-  cursor: pointer;
+  z-index: 100;
 }
 
 .addBtn {
@@ -40,49 +25,12 @@
   padding: 0 5px;
 }
 
-.renameInputContainer {
-  display: inline-grid;
-  width: auto;
-}
-
-.renameInputContainer input {
-  background: none;
-  border: 0;
-  color: orange;
-  display: inline;
-  font-family: 'Oxygen', sans-serif;
-  font-size: 14px;
-  grid-area: 1/2;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
-.renameInputContainer input:focus {
-  outline: none;
-}
-
-.renameInputContainer span {
-  grid-area: 1/2;
-}
-
-.renameInputContainer span::before {
-  content: attr(data-value);
-  grid-area: 1/2;
-  visibility: hidden;
-  white-space: pre-wrap;
-}
-
-.targeted {
-  background-color: #777;
-}
-
-.selected {
-  background-color: #333;
-  border-bottom: 0;
-  cursor: inherit;
-}
-
-.filename {
-  cursor: text;
+#screenMask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99;
+  cursor: not-allowed;
 }

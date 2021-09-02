@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import fileReducer from "./fileSlice";
+import dragReducer from "./dragSlice";
 
 const store = configureStore({
   reducer: {
     files: fileReducer,
+    drag: dragReducer,
   },
 });
 

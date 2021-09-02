@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import { transform } from "@babel/standalone";
 
-import FileList from "../file-list/FileList";
+import FileList from "../file-list/FileList-[TODO-REMOVE]";
 import ErrorBoundary from "../error-boundary/ErrorBoundary";
 import { ignoreError } from "../../utilities/error";
 
