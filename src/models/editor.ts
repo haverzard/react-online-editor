@@ -20,3 +20,8 @@ export interface ReactEditorProps extends EditorProps {
   viewer: RefObject<Container>;
   codeEditorContext: string;
 }
+
+export interface VueEditorProps extends EditorProps {
+  viewerId: string;
+  codeEditorContext: string;
+}
