@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import PlusIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { CSSProperties } from "@material-ui/core/styles/withStyles";
+import CSS from "csstype";
 
 import { genUniqueName } from "../../utilities/file";
 import { add, swap } from "../../store/fileSlice";
 import { reset, select, target, untarget } from "../../store/dragSlice";
 import { RootState } from "../../store";
+import { PlusIcon } from "../icons";
 
 import { InteractiveFileBlock, StaticFileBlock } from "./FileBlock";
 import * as __styles from "./FileList.module.css";
@@ -27,7 +27,7 @@ function FileList() {
   };
 
   const generateShadow = (name: string, x: number, y: number) => {
-    const style: CSSProperties = {};
+    const style: CSS.Properties = {};
     style.position = "absolute";
     style.top = y + 5 + "px";
     style.left = x + 5 + "px";

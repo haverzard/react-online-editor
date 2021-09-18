@@ -12,7 +12,7 @@
 }
 
 .filename {
-  padding: 10px 15px;
+  padding: 10px;
 }
 
 .dragBtn {
@@ -25,6 +25,7 @@
   color: pink;
   display: flex;
   cursor: pointer;
+  margin-right: 5px;
 }
 
 .renameInputContainer {

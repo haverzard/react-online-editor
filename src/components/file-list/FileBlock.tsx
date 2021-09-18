@@ -1,12 +1,11 @@
 import React, { useState, ChangeEvent } from "react";
-import CloseIcon from "@material-ui/icons/Close";
-import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
-import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import { useDispatch, useSelector } from "react-redux";
+import CSS from "csstype";
 
 import { RootState } from "../../store";
 import { genUniqueName } from "../../utilities/file";
 import { remove, rename, view } from "../../store/fileSlice";
+import { CloseIcon, DragIndicatorIcon } from "../icons";
 
 import * as __styles from "./FileBlock.module.css";
 
@@ -17,7 +16,7 @@ interface FileBlockProps {
 }
 
 interface StaticFileBlockProps extends FileBlockProps {
-  style: CSSProperties;
+  style: CSS.Properties;
 }
 
 interface InteractiveFileBlockProps extends FileBlockProps {
@@ -113,11 +112,11 @@ export function InteractiveFileBlock({ name, onDrag, onTargeted }: InteractiveFi
       </div>
       {name !== "App" && (
         <>
-          <div className={styles["dragBtn"]}>
-            <DragIndicatorIcon onMouseDown={isDynamic(name) ? (event) => onDrag(event, name) : undefined} />
+          <div className={styles["dragBtn"]} onMouseDown={isDynamic(name) ? (event) => onDrag(event, name) : undefined}>
+            <DragIndicatorIcon />
           </div>
-          <div className={styles["closeBtn"]}>
-            <CloseIcon onClick={() => removeFile(name)} />
+          <div className={styles["closeBtn"]} onClick={() => removeFile(name)}>
+            <CloseIcon />
           </div>
         </>
       )}
