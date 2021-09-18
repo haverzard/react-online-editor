@@ -6,11 +6,11 @@ Write your own React Components without using Desktop IDE in React!
 
 ## Why react-online-editor
 - The library gives the user a lot of flexibility since it just provided the code editor and compiling ability using babel.
-- You can choose your own theme from codemirror or create your own too!
+- You can choose your own theme for the codemirror editor or use your own too!
 - It's lightweight and has a minimal configuration.
 
 ## Requirements
-***TBD***
+- React `17.0.1` or higher
 
 ## How to Use
 ***TBD***

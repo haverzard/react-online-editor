@@ -8,4 +8,7 @@ module.exports = {
     "@storybook/addon-essentials",
     "storybook-css-modules-preset",
   ],
+  core: {
+    builder: "webpack5",
+  },
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentStory, ComponentMeta, Story } from "@storybook/react";
 import { Provider } from "react-redux";
 
 import store from "../store";
@@ -23,7 +23,7 @@ const Template: ComponentStory<typeof CustomizableEditor> = (args) => (
   </Provider>
 );
 
-export const Default = Template.bind({});
+export const Default: Story<any> = Template.bind({});
 Default.args = {
   code: { app: "var x = 123", files: {} },
   currentFile: "App",
