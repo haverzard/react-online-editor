@@ -14,11 +14,12 @@ export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 
-export const cloneStore = () => configureStore({
-  reducer: {
-    files: fileReducer,
-    drag: dragReducer,
-  },
-});
+export const cloneStore = () =>
+  configureStore({
+    reducer: {
+      files: fileReducer,
+      drag: dragReducer,
+    },
+  });
 
 export default store;

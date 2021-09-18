@@ -3,26 +3,26 @@ module.exports = {
     esm: {
       presets: [
         [
-          '@babel/preset-env',
+          "@babel/preset-env",
           {
             modules: false,
           },
         ],
-        '@babel/preset-typescript',
-        '@babel/preset-react',
+        "@babel/preset-typescript",
+        "@babel/preset-react",
       ],
     },
     cjs: {
       presets: [
         [
-          '@babel/preset-env',
+          "@babel/preset-env",
           {
-            modules: 'commonjs',
-          }
+            modules: "commonjs",
+          },
         ],
-        '@babel/preset-typescript',
-        '@babel/preset-react',
+        "@babel/preset-typescript",
+        "@babel/preset-react",
       ],
     },
   },
-}
+};

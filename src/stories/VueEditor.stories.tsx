@@ -22,7 +22,8 @@ const Template: ComponentStory<typeof VueEditor> = (args) => (
 export const Default: any = Template.bind({});
 Default.args = {
   code: {
-    app: "const App = {\n  methods: {\n    test() {\n      console.log(\"hi\");\n    }\n  },\n  render() {\n    return <button onClick={this.test}>Vue 3.0</button>;\n  },\n};",
+    app:
+      'const App = {\n  methods: {\n    test() {\n      console.log("hi");\n    }\n  },\n  render() {\n    return <button onClick={this.test}>Vue 3.0</button>;\n  },\n};',
     files: {},
   },
   currentFile: "App",

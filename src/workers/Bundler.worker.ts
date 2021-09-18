@@ -1,6 +1,6 @@
-import React from "react";
-import { bundleModule } from "../utilities/compiler";
 import * as process from "process";
+
+import { bundleModule } from "../utilities/compiler";
 
 self["process"] = process;
 
@@ -12,4 +12,4 @@ createMessage("Ready for bundling!");
 onmessage = (event) => {
   const { code, context, target } = event.data;
   postMessage(bundleModule(code, { context, target, allowDependencies: true }));
-}
+};

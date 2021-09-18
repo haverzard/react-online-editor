@@ -12,7 +12,7 @@ import { RootState } from "../../store";
 
 import * as __styles from "./Editor.module.css";
 
-const styles = (__styles.default ? __styles.default : __styles);
+const styles = __styles.default ? __styles.default : __styles;
 
 function CustomizableEditor({
   code,

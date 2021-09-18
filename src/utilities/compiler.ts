@@ -29,21 +29,23 @@ export function transpileReact(code: string) {
 }
 
 export function transpileVue(code: string) {
-  return transform(code, {
-    presets: ["es2015", require("@vue/babel-preset-jsx")],
-    plugins: [[require("@vue/babel-plugin-jsx"), { optimize: true }], require("@vue/babel-sugar-v-on")],
-  }).code || "";
+  return (
+    transform(code, {
+      presets: ["es2015", require("@vue/babel-preset-jsx")],
+      plugins: [[require("@vue/babel-plugin-jsx"), { optimize: true }], require("@vue/babel-sugar-v-on")],
+    }).code || ""
+  );
 }
 
 const transpiler = {
   [TargetFramework.REACT]: transpileReact,
   [TargetFramework.VUE]: transpileVue,
-}
+};
 
 // NOTE: Still not stable
 export function transpileVueApp(appCode: string) {
   let code = "\n" + transpileVue(appCode);
-  code += "\nreturn self[\"vue\"].createApp(App);";
+  code += '\nreturn self["vue"].createApp(App);';
   return code;
 }
 
@@ -56,7 +58,7 @@ export function transpileReactApp(appCode: string) {
 const appTranspiler = {
   [TargetFramework.REACT]: transpileReactApp,
   [TargetFramework.VUE]: transpileVueApp,
-}
+};
 
 export function importModule(code: string, context: string) {
   const [ROOT_GETTER, RELATIVE_GETTER] = REQUIRE_MODULE_GETTER_REGEXES;

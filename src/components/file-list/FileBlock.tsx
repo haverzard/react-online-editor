@@ -10,7 +10,7 @@ import { remove, rename, view } from "../../store/fileSlice";
 
 import * as __styles from "./FileBlock.module.css";
 
-const styles = (__styles.default ? __styles.default : __styles);
+const styles = __styles.default ? __styles.default : __styles;
 
 interface FileBlockProps {
   name: string;
