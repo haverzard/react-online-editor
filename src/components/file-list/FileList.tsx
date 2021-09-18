@@ -8,8 +8,10 @@ import { add, swap } from "../../store/fileSlice";
 import { reset, select, target, untarget } from "../../store/dragSlice";
 import { RootState } from "../../store";
 
-import * as styles from "./FileList.module.css";
 import { InteractiveFileBlock, StaticFileBlock } from "./FileBlock";
+import * as __styles from "./FileList.module.css";
+
+const styles = (__styles.default ? __styles.default : __styles);
 
 function FileList() {
   const [ShadowElement, setShadowElement] = useState<JSX.Element>();

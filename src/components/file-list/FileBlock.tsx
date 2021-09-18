@@ -8,7 +8,9 @@ import { RootState } from "../../store";
 import { genUniqueName } from "../../utilities/file";
 import { remove, rename, view } from "../../store/fileSlice";
 
-import * as styles from "./FileBlock.module.css";
+import * as __styles from "./FileBlock.module.css";
+
+const styles = (__styles.default ? __styles.default : __styles);
 
 interface FileBlockProps {
   name: string;

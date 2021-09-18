@@ -10,7 +10,9 @@ import { CustomizableEditorProps } from "../../models/editor";
 import { init, edit } from "../../store/fileSlice";
 import { RootState } from "../../store";
 
-import * as styles from "./Editor.module.css";
+import * as __styles from "./Editor.module.css";
+
+const styles = (__styles.default ? __styles.default : __styles);
 
 function CustomizableEditor({
   code,
@@ -43,11 +45,6 @@ function CustomizableEditor({
     return _files[_current];
   };
 
-  // TODO: add abstraction here
-  const loadDependencies = () => {
-    window["React"] = React;
-  };
-
   const editCode = (_editor: any, _data: any, value: string) => {
     if (_current === "App") {
       return setApp(value);
@@ -58,7 +55,6 @@ function CustomizableEditor({
   useEffect(() => {
     window.addEventListener("error", ignoreError);
 
-    loadDependencies();
     dispatch(init({ container: files, current: currentFile }));
 
     return () => window.removeEventListener("error", ignoreError);
