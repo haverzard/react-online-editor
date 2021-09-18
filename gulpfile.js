@@ -21,40 +21,21 @@ function babelTranspile(module = false) {
 }
 
 function createESMModule(done) {
-  gulp.src(
-    SRC_SCRIPT_FILES
-  ).pipe(
-    babelTranspile()
-  ).pipe(
-    gulp.dest("esm")
-  );
+  gulp.src(SRC_SCRIPT_FILES).pipe(babelTranspile()).pipe(gulp.dest("esm"));
 
-  gulp.src(
-    SRC_OTHER_FILES
-  ).pipe(
-    gulp.dest("esm")
-  );
+  gulp.src(SRC_OTHER_FILES).pipe(gulp.dest("esm"));
   done();
 }
 
 function createCJSModule(done) {
-  gulp.src(
-    SRC_SCRIPT_FILES
-  ).pipe(
-    sourcemaps.init()
-  ).pipe(
-    babelTranspile("commonjs")
-    ).pipe(
-      sourcemaps.write(".")
-    ).pipe(
-    gulp.dest("lib")
-  );
+  gulp
+    .src(SRC_SCRIPT_FILES)
+    .pipe(sourcemaps.init())
+    .pipe(babelTranspile("commonjs"))
+    .pipe(sourcemaps.write("."))
+    .pipe(gulp.dest("lib"));
 
-  gulp.src(
-    SRC_OTHER_FILES
-  ).pipe(
-    gulp.dest("lib")
-  );
+  gulp.src(SRC_OTHER_FILES).pipe(gulp.dest("lib"));
   done();
 }
 

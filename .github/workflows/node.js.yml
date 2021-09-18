@@ -1,4 +1,4 @@
-name: Web CI
+name: Package CI
 
 on:
   push:
