@@ -20,7 +20,6 @@
     "pretty": true,
     "outDir": "lib",
     "declaration": true,
-    "emitDeclarationOnly": true,
     "jsx": "react-jsx"
   },
   "include": [

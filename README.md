@@ -21,7 +21,17 @@ Using a similar idea to Webpack, it transpiles & wraps your code into a single f
 ## Requirements
 - Peer Dependencies: `npm install react react-dom  react-codemirror2 codemirror`
 
+## Links
+- [Storybook](https://haverzard.github.io/react-online-editor/storybook/)
+- [Documentation](https://haverzard.github.io/react-online-editor/docs/)
+
+## Installation
+`npm install react-online-editor`
+
 ## How to use
+### Bundler
+Please refer to documentation for more detail
+
 ### React Editor
 Before using it, you need to run `npm install @babel/preset-react`.
 

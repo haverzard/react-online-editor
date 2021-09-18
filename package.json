@@ -9,10 +9,11 @@
   "module": "esm/index.js",
   "scripts": {
     "prepare": "husky install && npm run remove-conflicts",
-    "prepublishOnly": "npm run clean && tsc && npm run build",
+    "prepublishOnly": "npm run clean && tsc --declaration --emitDeclarationOnly && npm run build",
     "clean": "rimraf esm && rimraf lib",
     "lint": "npx eslint **/*.js **/*.ts **/*.tsx --fix && npx stylelint **/*.css --fix",
     "remove-conflicts": "rimraf node_modules/@vue/runtime-dom/dist/runtime-dom.d.ts",
+    "docs": "npx typedoc src/index.tsx",
     "build": "npx gulp build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -97,6 +98,7 @@
     "react-dom": "^17.0.1",
     "rimraf": "^3.0.2",
     "storybook-css-modules-preset": "^1.1.1",
+    "typedoc": "^0.22.3",
     "typescript": "^4.2.4",
     "vue": "^3.2.8",
     "webpack": "^5.52.0"
