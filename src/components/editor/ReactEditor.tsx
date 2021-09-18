@@ -48,8 +48,9 @@ function ReactEditor({ viewer, codeEditorContext = "test", ...props }: ReactEdit
 
   useEffect(() => {
     loadDependencies();
-    setWorker(createBundler());
-    return () => worker && worker.terminate();
+    const bundler = createBundler();
+    setWorker(bundler);
+    return () => bundler.terminate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

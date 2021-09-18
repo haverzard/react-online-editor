@@ -6,7 +6,6 @@ import { Code } from "./compiler";
 interface EditorProps {
   code: Code;
   currentFile: string;
-  isSolution: boolean;
   storageKey: string;
 }
 

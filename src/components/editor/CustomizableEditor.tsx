@@ -14,15 +14,7 @@ import * as __styles from "./Editor.module.css";
 
 const styles = __styles.default ? __styles.default : __styles;
 
-function CustomizableEditor({
-  code,
-  currentFile,
-  isSolution,
-  theme,
-  keyMap,
-  storageKey,
-  runCode,
-}: CustomizableEditorProps) {
+function CustomizableEditor({ code, currentFile, theme, keyMap, storageKey, runCode }: CustomizableEditorProps) {
   const { app, files } = code;
   const [_app, setApp] = useState(app);
   const _files = useSelector((state: RootState) => state.files.container);
@@ -62,18 +54,15 @@ function CustomizableEditor({
 
   useEffect(() => {
     runCode({ files: _files, app: _app });
+    if (storageKey) {
+      localStorage[`code:${storageKey}`] = JSON.stringify({ app: _app, files: _files });
+    }
   }, [_files, _app]);
 
   useEffect(() => {
     setApp(app);
     dispatch(init({ container: files, current: currentFile }));
-  }, [isSolution]);
-
-  useEffect(() => {
-    if (storageKey) {
-      localStorage[`code:${storageKey}`] = JSON.stringify({ app: _app, files: _files });
-    }
-  }, [_files, _app]);
+  }, [app, files]);
 
   return (
     <>
