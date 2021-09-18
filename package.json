@@ -12,7 +12,7 @@
     "postci": "npm run remove-conflicts",
     "prepublishOnly": "npm run clean && tsc && npm run transpile-lib && npm run transpile-esm",
     "clean": "rimraf esm && rimraf lib",
-    "lint": "npx eslint **/**.js **/**.ts **/**.tsx --fix && npx stylelint **/**.scss **/**.css --fix",
+    "lint": "npx eslint **/*.js **/*.ts **/*.tsx --fix && npx stylelint **/*.css --fix",
     "transpile-lib": "cross-env BABEL_ENV=cjs babel src --out-dir lib --extensions \".ts,.tsx\" --copy-files  --ignore \"src/stories\" --no-copy-ignored --source-maps true",
     "transpile-esm": "cross-env BABEL_ENV=esm babel src --out-dir esm --extensions \".ts,.tsx\" --ignore \"src/stories/**/**\" --copy-files",
     "remove-conflicts": "rimraf node_modules/@vue/runtime-dom/dist/runtime-dom.d.ts",
