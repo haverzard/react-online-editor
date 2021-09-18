@@ -1,0 +1,191 @@
+<!DOCTYPE html><html class="default no-js"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>react-online-editor</title><meta name="description" content="Documentation for react-online-editor"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">react-online-editor</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>react-online-editor</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#react-online-editor" id="react-online-editor" style="color: inherit; text-decoration: none;">
+  <h1>react-online-editor</h1>
+</a>
+<p><a href="https://github.com/haverzard/react-online-editor/actions/workflows/node.js.yml"><img src="https://github.com/haverzard/react-online-editor/actions/workflows/node.js.yml/badge.svg" alt="Web CI"></a>
+<img src="https://raw.githubusercontent.com/storybookjs/brand/059f152ecfa4e9895380cb0e4a1f48cf80311a69/badge/badge-storybook.svg" alt="Storybook"></p>
+
+<a href="#description" id="description" style="color: inherit; text-decoration: none;">
+  <h2>Description</h2>
+</a>
+<p>Write your own React Components without using Desktop IDE in React!</p>
+<p><strong>react-online-editor</strong> is a React component library that provides the ability to code and compile your React codes in a Web environment. It&#39;s not as powerful as CodeSandbox. It uses codemirror library to provide the amazing code editor UI.</p>
+<p><strong>NOTE: Currently, dependency import is not supported yet</strong></p>
+
+<a href="#why-react-online-editor" id="why-react-online-editor" style="color: inherit; text-decoration: none;">
+  <h2>Why react-online-editor</h2>
+</a>
+<ul>
+<li>The library gives the user a lot of flexibility since it just provided the code editor and compiling ability using Babel.</li>
+<li>You can choose your own theme for the codemirror editor or create your own too.</li>
+<li>It&#39;s lightweight and has a minimal configuration.</li>
+</ul>
+
+<a href="#how-it-works" id="how-it-works" style="color: inherit; text-decoration: none;">
+  <h2>How it works</h2>
+</a>
+<p>Using a similar idea to Webpack, it transpiles &amp; wraps your code into a single factory function. It uses the global variable <code>window</code> in order to store the dependency map for dependency resolution. Everything is done in Javascript, and you can modify it easily.</p>
+
+<a href="#requirements" id="requirements" style="color: inherit; text-decoration: none;">
+  <h2>Requirements</h2>
+</a>
+<ul>
+<li>Peer Dependencies: <code>npm install react react-dom  react-codemirror2 codemirror</code></li>
+</ul>
+
+<a href="#how-to-use" id="how-to-use" style="color: inherit; text-decoration: none;">
+  <h2>How to use</h2>
+</a>
+
+<a href="#bundler" id="bundler" style="color: inherit; text-decoration: none;">
+  <h3>Bundler</h3>
+</a>
+
+<a href="#react-editor" id="react-editor" style="color: inherit; text-decoration: none;">
+  <h3>React Editor</h3>
+</a>
+<p>Before using it, you need to run <code>npm install @babel/preset-react</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Props</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>code</td>
+<td><code>Code - { code: string, files: Dictionary }</code></td>
+<td>Your React code, represented as a JSON object consisted of <code>app</code> (the main file) and <code>files</code> (file container in form of JSON object)</td>
+</tr>
+<tr>
+<td>currentFile</td>
+<td><code>string</code></td>
+<td>The current selected file (app, etc)</td>
+</tr>
+<tr>
+<td>storageKey</td>
+<td><code>string</code></td>
+<td>The localStorage key for storing the code</td>
+</tr>
+<tr>
+<td>codeEditorContext</td>
+<td><code>string</code></td>
+<td>The window key for storing the bundled code</td>
+</tr>
+<tr>
+<td>viewer</td>
+<td><code>ReactRef</code></td>
+<td>React reference object for rendering the React component</td>
+</tr>
+</tbody></table>
+<p>Sample code:</p>
+<pre><code><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">useRef</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;react&quot;</span><span class="hl-1">;</span><br/><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">ReactEditor</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;react-online-editor&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">function</span><span class="hl-1"> </span><span class="hl-5">YourReactComponent</span><span class="hl-1">() {</span><br/><span class="hl-1">    </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-6">viewer</span><span class="hl-1"> = </span><span class="hl-5">useRef</span><span class="hl-1">();</span><br/><span class="hl-1">    ...</span><br/><span class="hl-1">    </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-6">code</span><span class="hl-1"> = { </span><span class="hl-2">app:</span><span class="hl-1"> </span><span class="hl-3">&quot;function App() {</span><span class="hl-7">\n</span><span class="hl-3">  return &lt;div&gt;123&lt;/div&gt;;</span><span class="hl-7">\n</span><span class="hl-3">}&quot;</span><span class="hl-1">, </span><span class="hl-2">files:</span><span class="hl-1"> {} };</span><br/><span class="hl-1">    </span><span class="hl-0">return</span><span class="hl-1"> &lt;</span><span class="hl-8">ReactEditor</span><br/><span class="hl-1">            </span><span class="hl-8">code</span><span class="hl-1">={</span><span class="hl-2">code</span><span class="hl-1">}</span><br/><span class="hl-1">            </span><span class="hl-8">currentFile</span><span class="hl-1">=</span><span class="hl-3">&quot;App&quot;</span><br/><span class="hl-1">            </span><span class="hl-8">viewer</span><span class="hl-1">={</span><span class="hl-2">viewer</span><span class="hl-1">}</span><br/><span class="hl-1">            </span><span class="hl-8">codeEditorContext</span><span class="hl-1">=</span><span class="hl-3">&quot;my-react-editor&quot;</span><span class="hl-1"> /&gt;;</span><br/><span class="hl-1">}</span>
+</code></pre>
+
+<a href="#vue-editor" id="vue-editor" style="color: inherit; text-decoration: none;">
+  <h3>Vue Editor</h3>
+</a>
+<p>Before using it, you need to run <code>npm install @vue/babel-plugin-jsx @vue/babel-preset-jsx @vue/babel-sugar-v-on</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Props</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>code</td>
+<td><code>Code - { code: string, files: Dictionary }</code></td>
+<td>Your Vue code, represented as a JSON object consisted of <code>app</code> (the main file) and <code>files</code> (file container in form of JSON object)</td>
+</tr>
+<tr>
+<td>currentFile</td>
+<td><code>string</code></td>
+<td>The current selected file (app, etc)</td>
+</tr>
+<tr>
+<td>storageKey</td>
+<td><code>string</code></td>
+<td>The localStorage key for storing the code</td>
+</tr>
+<tr>
+<td>codeEditorContext</td>
+<td><code>string</code></td>
+<td>The window key for storing the bundled code</td>
+</tr>
+<tr>
+<td>viewerId</td>
+<td><code>string</code></td>
+<td>Document ID for rendering the Vue component</td>
+</tr>
+</tbody></table>
+<p>Sample code:</p>
+<pre><code><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">useRef</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;react&quot;</span><span class="hl-1">;</span><br/><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">VueEditor</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;react-online-editor&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">function</span><span class="hl-1"> </span><span class="hl-5">YourReactComponent</span><span class="hl-1">() {</span><br/><span class="hl-1">    ...</span><br/><span class="hl-1">    </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-6">code</span><span class="hl-1"> = { </span><span class="hl-2">app:</span><span class="hl-1"> </span><span class="hl-3">&#39;const App = {</span><span class="hl-7">\n</span><span class="hl-3">  methods: {</span><span class="hl-7">\n</span><span class="hl-3">    test() {</span><span class="hl-7">\n</span><span class="hl-3">      console.log(&quot;hi&quot;);</span><span class="hl-7">\n</span><span class="hl-3">    }</span><span class="hl-7">\n</span><span class="hl-3">  },</span><span class="hl-7">\n</span><span class="hl-3">  render() {</span><span class="hl-7">\n</span><span class="hl-3">    return &lt;button onClick={this.test}&gt;Vue 3.0&lt;/button&gt;;</span><span class="hl-7">\n</span><span class="hl-3">  },</span><span class="hl-7">\n</span><span class="hl-3">};&#39;</span><span class="hl-1">, </span><span class="hl-2">files:</span><span class="hl-1"> {} };</span><br/><span class="hl-1">    </span><span class="hl-0">return</span><span class="hl-1"> &lt;</span><span class="hl-8">VueEditor</span><br/><span class="hl-1">            </span><span class="hl-8">code</span><span class="hl-1">={</span><span class="hl-2">code</span><span class="hl-1">}</span><br/><span class="hl-1">            </span><span class="hl-8">currentFile</span><span class="hl-1">=</span><span class="hl-3">&quot;App&quot;</span><br/><span class="hl-1">            </span><span class="hl-8">viewer</span><span class="hl-1">=</span><span class="hl-3">&quot;app&quot;</span><br/><span class="hl-1">            </span><span class="hl-8">codeEditorContext</span><span class="hl-1">=</span><span class="hl-3">&quot;my-react-editor&quot;</span><span class="hl-1"> /&gt;;</span><br/><span class="hl-1">}</span>
+</code></pre>
+
+<a href="#customizable-editor" id="customizable-editor" style="color: inherit; text-decoration: none;">
+  <h3>Customizable Editor</h3>
+</a>
+<p>Doesn&#39;t like the theme or want to support another framework/language? You can use <code>CustomizableEditor</code></p>
+<table>
+<thead>
+<tr>
+<th>Props</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>code</td>
+<td><code>Code - { code: string, files: Dictionary }</code></td>
+<td>Your Vue code, represented as a JSON object consisted of <code>app</code> (the main file) and <code>files</code> (file container in form of JSON object)</td>
+</tr>
+<tr>
+<td>currentFile</td>
+<td><code>string</code></td>
+<td>The current selected file (app, etc)</td>
+</tr>
+<tr>
+<td>storageKey</td>
+<td><code>string</code></td>
+<td>The localStorage key for storing the code</td>
+</tr>
+<tr>
+<td>theme</td>
+<td><code>string</code></td>
+<td>CodeMirror theme</td>
+</tr>
+<tr>
+<td>keyMap</td>
+<td><code>string</code></td>
+<td>CodeMirror key map</td>
+</tr>
+<tr>
+<td>runCode</td>
+<td><code>function(code: Code)</code></td>
+<td>Process your code</td>
+</tr>
+</tbody></table>
+<p>Sample code: <a href="https://github.com/haverzard/react-online-editor/blob/master/src/components/editor/ReactEditor.tsx">ReactEditor</a></p>
+
+<a href="#use-cases" id="use-cases" style="color: inherit; text-decoration: none;">
+  <h2>Use Cases</h2>
+</a>
+
+<a href="#react-related-coding-guides" id="react-related-coding-guides" style="color: inherit; text-decoration: none;">
+  <h3>React-related Coding Guides</h3>
+</a>
+<p>With <strong>react-online-editor</strong>, you can make your coding guides more interactive since you can try to code while learning. The idea is similar to <a href="https://tour.golang.org/">Tour Golang</a> and <a href="https://svelte.dev/tutorial/basics">Svelte Tutorial</a>.</p>
+
+<a href="#simple-code-snippet-server" id="simple-code-snippet-server" style="color: inherit; text-decoration: none;">
+  <h3>Simple Code Snippet Server</h3>
+</a>
+<p>Similar to CodeSandbox embeddable iframe, you can also create your own code snippet server.</p>
+
+<a href="#test-amp-experimentation" id="test-amp-experimentation" style="color: inherit; text-decoration: none;">
+  <h3>Test &amp; Experimentation</h3>
+</a>
+<p>Using this library, you can test or experiment on a certain code without the need to wait for bundling.</p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-enum"><a href="enums/TargetFramework.html" class="tsd-kind-icon">Target<wbr/>Framework</a></li><li class="tsd-kind-interface"><a href="interfaces/BundlerOption.html" class="tsd-kind-icon">Bundler<wbr/>Option</a></li><li class="tsd-kind-interface"><a href="interfaces/Code.html" class="tsd-kind-icon">Code</a></li><li class="tsd-kind-interface"><a href="interfaces/FileBundlingOption.html" class="tsd-kind-icon">File<wbr/>Bundling<wbr/>Option</a></li><li class="tsd-kind-function"><a href="modules.html#CustomizableEditor" class="tsd-kind-icon">Customizable<wbr/>Editor</a></li><li class="tsd-kind-function"><a href="modules.html#ReactEditor" class="tsd-kind-icon">React<wbr/>Editor</a></li><li class="tsd-kind-function"><a href="modules.html#VueEditor" class="tsd-kind-icon">Vue<wbr/>Editor</a></li><li class="tsd-kind-function"><a href="modules.html#bundleFile" class="tsd-kind-icon">bundle<wbr/>File</a></li><li class="tsd-kind-function"><a href="modules.html#bundleModule" class="tsd-kind-icon">bundle<wbr/>Module</a></li><li class="tsd-kind-function"><a href="modules.html#exportModule" class="tsd-kind-icon">export<wbr/>Module</a></li><li class="tsd-kind-function"><a href="modules.html#importModule" class="tsd-kind-icon">import<wbr/>Module</a></li><li class="tsd-kind-function"><a href="modules.html#initTranspile" class="tsd-kind-icon">init<wbr/>Transpile</a></li><li class="tsd-kind-function"><a href="modules.html#packing" class="tsd-kind-icon">packing</a></li><li class="tsd-kind-function"><a href="modules.html#tabbed" class="tsd-kind-icon">tabbed</a></li><li class="tsd-kind-function"><a href="modules.html#transpileReact" class="tsd-kind-icon">transpile<wbr/>React</a></li><li class="tsd-kind-function"><a href="modules.html#transpileReactApp" class="tsd-kind-icon">transpile<wbr/>React<wbr/>App</a></li><li class="tsd-kind-function"><a href="modules.html#transpileVue" class="tsd-kind-icon">transpile<wbr/>Vue</a></li><li class="tsd-kind-function"><a href="modules.html#transpileVueApp" class="tsd-kind-icon">transpile<wbr/>Vue<wbr/>App</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
