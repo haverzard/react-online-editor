@@ -1,7 +1,7 @@
 # react-online-editor 
 
 [![Package CI](https://github.com/haverzard/react-online-editor/actions/workflows/on_release.yml/badge.svg)](https://github.com/haverzard/react-online-editor/actions/workflows/on_release.yml)
-[![npm version](https://badge.fury.io/js/react-online-editor.svg)](https://badge.fury.io/js/react-online-editor)
+[![npm version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&r=r&type=6e&v=1.0.0&x2=0)](https://www.npmjs.com/package/react-online-editor)
 ![Storybook](https://raw.githubusercontent.com/storybookjs/brand/059f152ecfa4e9895380cb0e4a1f48cf80311a69/badge/badge-storybook.svg)
 
 ## Description

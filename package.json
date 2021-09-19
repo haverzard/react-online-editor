@@ -1,6 +1,6 @@
 {
   "name": "react-online-editor",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Write your React components in React!",
   "author": "haverzard",
   "sideEffects": false,
@@ -24,7 +24,10 @@
   ],
   "keywords": [
     "React",
+    "Vue",
+    "babel-standalone",
     "codemirror",
+    "web",
     "editor"
   ],
   "repository": {
